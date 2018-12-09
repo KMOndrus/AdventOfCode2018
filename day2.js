@@ -50,8 +50,42 @@ packageCheckSum(packageData);
 
 function correctPackageId(data){
   const dataArray = data.split(' ');
+  let packageId1 = 'none';
+  let packageId2 = 'none';
 
+  for (let element1Index = 0; element1Index < (dataArray.length - 1); ++element1Index){
+    for (let element2Index = (element1Index + 1); element2Index < dataArray.length; ++element2Index){
+      let element1 = dataArray[element1Index];
+      let element2 = dataArray[element2Index];
+      let differentCharCount = 0;
 
+      for (let curCharIndex = 0; curCharIndex < element1.length; ++curCharIndex){
+        if (element1[curCharIndex] !== element2[curCharIndex]){
+          differentCharCount += 1;
+        }
+        if (differentCharCount > 1){
+          break;
+        }
+      }
+
+      if (differentCharCount === 1){
+        packageId1 = element1;
+        packageId2 = element2;
+        break;
+      }
+    }
+  }
+
+  for (let i = 0; i < packageId1.length; ++i){
+    if (packageId1[i] !== packageId2[i]){
+      let part1 = packageId1.substring(0, i);
+      let part2 = packageId1.substring(i+1);
+      console.log(part1.concat(part2));
+    }
+  }
+  console.log(packageId1);
+  console.log(packageId2);
 }
 
 correctPackageId(sampleData2);
+correctPackageId(packageData);
